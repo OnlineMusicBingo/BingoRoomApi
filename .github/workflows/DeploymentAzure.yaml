@@ -1,0 +1,43 @@
+name: DeploymentAzureBingoRoomApi
+"on":
+    push:
+        branches:
+            - main
+    workflow_dispatch: {}
+env:
+    ACR_RESOURCE_GROUP: OnlineMusicBingo
+    AZURE_CONTAINER_REGISTRY: BingoAppRegistry
+    CLUSTER_NAME: OnlineMusicBingo-Cluster
+    CLUSTER_RESOURCE_GROUP: OnlineMusicBingo
+    CONTAINER_NAME: bingoroomapi
+    DEPLOYMENT_MANIFEST_PATH: |
+        ./Manifest/deployment.yml
+        ./Manifest/ingress.yml
+        ./Manifest/service.yml
+jobs:
+    deploy:
+        permissions:
+            actions: read
+            contents: read
+            id-token: write
+        runs-on: ubuntu-latest
+        needs:
+            - buildImage
+        steps:
+            - uses: actions/checkout@v3
+            - uses: azure/login@v1.4.3
+              name: Azure login
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
+            - uses: azure/aks-set-context@v3
+              name: Get K8s context
+              with:
+                cluster-name: ${{ env.CLUSTER_NAME }}
+                resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+            - uses: Azure/k8s-deploy@v4
+              name: Deploys application
+              with:
+                action: deploy
+                images: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
+                manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
+                namespace: default
