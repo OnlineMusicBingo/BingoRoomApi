@@ -45,7 +45,7 @@ jobs:
             - name: Get tags
               run: az acr repository show-tags --repository bingoroomapi --name BingoAppRegistry
             - name: Set up Kubernetes CLI
-                uses: Azure/setup-kubectl@v3
+              uses: Azure/setup-kubectl@v3
             - uses: azure/aks-set-context@v3
               name: Get K8s context
               with:
