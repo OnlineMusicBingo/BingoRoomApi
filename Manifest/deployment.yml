@@ -1,21 +1,21 @@
-apiVersion: apps/v1
+﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bingoroom-api
+  name: bingoroomapi
   labels:
-    app: bingoroom-api
+    app: bingoroomapi
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bingoroom-api
+      app: bingoroomapi
   template:
     metadata:
       labels:
-        app: bingoroom-api
+        app: bingoroomapi
     spec:
       containers:
-        - name: bingoroom-api
+        - name: bingoroomapi
           image: bingoappregistry.azurecr.io/bingoroomapi:latest
           imagePullPolicy: IfNotPresent
           ports:
