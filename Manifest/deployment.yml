@@ -17,7 +17,6 @@ spec:
       containers:
         - name: bingoroomapi
           image: bingoappregistry.azurecr.io/bingoroomapi:latest
-          imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 80
           resources:
