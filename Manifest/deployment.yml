@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bingoroom-api
+  labels:
+    app: bingoroom-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bingoroom-api
+  template:
+    metadata:
+      labels:
+        app: bingoroom-api
+    spec:
+      containers:
+        - name: bingoroom-api
+          image: bingoappregistry.azurecr.io/bingoroomapi:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 200m
+              memory: 200Mi
