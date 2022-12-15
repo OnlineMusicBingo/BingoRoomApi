@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: bingoroomapi
-          image: bingoappregistry.azurecr.io/bingoroomapi:latest
+          image: onlinemusicbingoregistry.azurecr.io/bingoroomapi:latest
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 80
