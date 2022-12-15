@@ -38,6 +38,6 @@ jobs:
               name: Deploys application
               with:
                 action: deploy
-                images: onlinemusicbingoregistry.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
+                images: onlinemusicbingoregistry.azurecr.io/bingoroomapi:6b1cee9c870b344f1a05c2e030c50a38346c22c9
                 manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
                 namespace: default
