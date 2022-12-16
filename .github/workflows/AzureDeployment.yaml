@@ -12,8 +12,8 @@ env:
     CONTAINER_NAME: bingoroomapi
     DEPLOYMENT_MANIFEST_PATH: |
         ./Manifest/deployment.yml
-        ./Manifest/ingress.yml
         ./Manifest/service.yml
+        ./Manifest/ingress.yml
 jobs:
     buildImage:
         permissions:
