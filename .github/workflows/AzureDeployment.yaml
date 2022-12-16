@@ -14,6 +14,7 @@ env:
         ./Manifest/deployment.yml
         ./Manifest/ingress.yml
         ./Manifest/service.yml
+        https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/cloud/deploy.yaml
 jobs:
     buildImage:
         permissions:
