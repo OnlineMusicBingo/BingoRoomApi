@@ -1,11 +1,17 @@
 
 using BingoRoomApi;
-using BingoRoomApi.Models;
-using MongoDB.Driver.Core.Configuration;
+using Azure.Identity;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+if (builder.Environment.IsProduction())
+{
+    //var builtConfig = config.Build();
+    var builtConfig = builder.Configuration;
+    builder.Configuration.AddAzureKeyVault(new KeyVaultManagement(builtConfig).SecretClient, new KeyVaultSecretManager());
+}
+
 
 
 builder.Services.AddControllers();
