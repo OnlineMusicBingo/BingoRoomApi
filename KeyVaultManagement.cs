@@ -17,8 +17,8 @@ namespace BingoRoomApi
             get
             {
                 return new SecretClient(
-                                 new Uri($"https://{this._config["KeyVaultName"]}.vault.azure.net/"),
-                                 new DefaultAzureCredential());
+                    new Uri($"https://{this._config["KeyVaultName"]}.vault.azure.net/"),
+                    new DefaultAzureCredential());
             }
         }
     }
