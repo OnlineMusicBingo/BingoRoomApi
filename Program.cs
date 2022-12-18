@@ -4,17 +4,23 @@ using Azure.Identity;
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using BingoRoomApi.Models;
 using MongoDB.Driver.Core.Configuration;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 if (builder.Environment.IsProduction())
 {
-    //var builtConfig = config.Build();
     var builtConfig = builder.Configuration;
+
     builder.Configuration.AddAzureKeyVault(new KeyVaultManagement(builtConfig).SecretClient, new KeyVaultSecretManager());
-    var bingoRoomDatabaseSettings = new BingoRoomDatabaseSettings(builtConfig);
-    bingoRoomDatabaseSettings.SetConnectionstring();
+    BingoRoomDatabaseSettings.SetConnectionstring(builtConfig.GetValue<string>("BingoRoomDBConnString"));
+}
+
+if (builder.Environment.IsDevelopment())
+{
+    BingoRoomDatabaseSettings.SetConnectionstring(builder.Configuration["MONGODB_CONNSTRING"]);
 }
 
 builder.Services.AddControllers();
@@ -22,7 +28,29 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<BingoRoomService>();
+
+// create a logger factory
+var loggerFactory = LoggerFactory.Create(
+    builder => builder
+                // add console as logging target
+                .AddConsole()
+                // add debug output as logging target
+                .AddDebug()
+                // set minimum level to log
+                .SetMinimumLevel(LogLevel.Debug)
+);
+
+var logger = loggerFactory.CreateLogger("BingoRoomCategory");
+//TODO fix logger error
+builder.Services.AddSingleton<BingoRoomService>(logger);
+
+// Test logging
+logger.LogTrace("Trace message");
+logger.LogDebug("Debug message");
+logger.LogInformation("Info message");
+logger.LogWarning("Warning message");
+logger.LogError("Error message");
+logger.LogCritical("Critical message");
 
 var app = builder.Build();
 
@@ -32,8 +60,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-
 
 app.UseHttpsRedirection();
 

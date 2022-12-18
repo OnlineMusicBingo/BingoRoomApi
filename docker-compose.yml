@@ -1,0 +1,30 @@
+version: '3.4'
+
+networks:
+    mongodb_network:
+
+volumes:
+  postgres_data:
+      driver: local
+  mongodb_data:
+
+services:
+  bingoroomapi:
+    image: ${DOCKER_REGISTRY-}bingoroomapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - mongodb_network
+
+  mongodb:
+    image: mongo:6.0.3
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - mongodb_network
+    ports:
+      - 27017:27017

@@ -2,7 +2,7 @@
 
 namespace BingoRoomApi.Models
 {
-    public class BingoRoomDatabaseSettings
+    public static class BingoRoomDatabaseSettings
     {
         //public string ConnectionString { get; set; } = null!;
 
@@ -11,24 +11,24 @@ namespace BingoRoomApi.Models
         //public string BingoRoomsCollectionName { get; set; } = null!; 
 
         //public string ConnectionString { get; set; } = Environment.GetEnvironmentVariable("MONGODB_CONNSTRING");
-        private readonly IConfiguration _config;
-        private string connectionString;
+        //private static readonly IConfiguration _config;
+        private static string connectionString;
 
-        public BingoRoomDatabaseSettings(IConfiguration config)
+        /*public static BingoRoomDatabaseSettings(IConfiguration config)
         {
             _config = config;
-        }
+        }*/
 
-        public void SetConnectionstring()
+        public static void SetConnectionstring(string connString)
         {
-            connectionString = _config.GetValue<string>("BingoRoomDBConnString");
+            connectionString = connString;
             // Use the connection string to perform database operations
         }
 
-        public string ConnectionString { get { return connectionString; } }
+        public static string ConnectionString { get { return connectionString; } }
 
-        public string DatabaseName { get; set; } = "bingo_app";
+        public static string DatabaseName { get; set; } = "bingo_app";
 
-        public string BingoRoomsCollectionName { get; set; } = "bingo_room";
+        public static string BingoRoomsCollectionName { get; set; } = "bingo_room";
     }
 }
