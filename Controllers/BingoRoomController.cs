@@ -1,4 +1,6 @@
-﻿using BingoRoomApi.Models;
+﻿using BingoRoomApi.Interfaces;
+using BingoRoomApi.Models;
+using BingoRoomApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -12,9 +14,9 @@ namespace BingoRoomApi.Controllers
     public class BingoRoomController : Controller
     {
 
-        private readonly BingoRoomService _bingoRoomService;
+        private readonly IBingoRoomService _bingoRoomService;
 
-        public BingoRoomController(BingoRoomService bingoRoomService) =>
+        public BingoRoomController(IBingoRoomService bingoRoomService) =>
             _bingoRoomService = bingoRoomService;
 
         [HttpGet]
