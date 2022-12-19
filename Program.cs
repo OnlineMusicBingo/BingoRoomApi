@@ -11,9 +11,8 @@ if (builder.Environment.IsProduction())
 {
     var builtConfig = builder.Configuration;
 
-    //builder.Configuration.AddAzureKeyVault(new KeyVaultManagement(builtConfig).SecretClient, new KeyVaultSecretManager());
-    //BingoRoomDatabaseSettings.SetConnectionstring(builtConfig.GetValue<string>("BingoRoomDBConnString"));
-    BingoRoomDatabaseSettings.SetConnectionstring(builder.Configuration["BINGOROOMDB_CONNSTRING"]);
+    builder.Configuration.AddAzureKeyVault(new KeyVaultManagement(builtConfig).SecretClient, new KeyVaultSecretManager());
+    BingoRoomDatabaseSettings.SetConnectionstring(builtConfig.GetValue<string>("BingoRoomDBConnString"));
 }
 
 if (builder.Environment.IsDevelopment())
