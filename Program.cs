@@ -1,11 +1,7 @@
-
 using BingoRoomApi;
 using Azure.Identity;
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using BingoRoomApi.Models;
-using MongoDB.Driver.Core.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
