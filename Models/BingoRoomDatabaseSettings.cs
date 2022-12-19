@@ -4,20 +4,7 @@ namespace BingoRoomApi.Models
 {
     public static class BingoRoomDatabaseSettings
     {
-        //public string ConnectionString { get; set; } = null!;
-
-        //public string DatabaseName { get; set; } = null!;
-
-        //public string BingoRoomsCollectionName { get; set; } = null!; 
-
-        //public string ConnectionString { get; set; } = Environment.GetEnvironmentVariable("MONGODB_CONNSTRING");
-        //private static readonly IConfiguration _config;
         private static string connectionString;
-
-        /*public static BingoRoomDatabaseSettings(IConfiguration config)
-        {
-            _config = config;
-        }*/
 
         public static void SetConnectionstring(string connString)
         {
