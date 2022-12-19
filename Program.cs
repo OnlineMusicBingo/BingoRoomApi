@@ -29,30 +29,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-// create a logger factory
-ILoggerFactory loggerFactory = LoggerFactory.Create(
-    builder => builder
-                // add console as logging target
-                .AddConsole()
-                // add debug output as logging target
-                .AddDebug()
-                // set minimum level to log
-                .SetMinimumLevel(LogLevel.Debug)
-);
-
-var logger = loggerFactory.CreateLogger("BingoRoomCategory");
 //TODO fix logger error
 builder.Services.AddSingleton<BingoRoomService>();
 //builder.Logging.AddProvider(loggerFactory);
 
-// Test logging
-logger.LogTrace("Trace message");
-logger.LogDebug("Debug message");
-logger.LogInformation("Info message");
-logger.LogWarning("Warning message");
-logger.LogError("Error message");
-logger.LogCritical("Critical message");
 
 var app = builder.Build();
 
