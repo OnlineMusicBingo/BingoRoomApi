@@ -4,8 +4,6 @@ networks:
     mongodb_network:
 
 volumes:
-  postgres_data:
-      driver: local
   mongodb_data:
 
 services:
@@ -14,6 +12,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - 5800:80
+      - 7800:443
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password123!
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/bingoroom.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
     networks:
       - mongodb_network
 

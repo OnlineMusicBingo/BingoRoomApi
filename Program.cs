@@ -5,6 +5,7 @@ using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using BingoRoomApi.Models;
 using MongoDB.Driver.Core.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -30,7 +31,7 @@ builder.Services.AddSwaggerGen();
 
 
 // create a logger factory
-var loggerFactory = LoggerFactory.Create(
+ILoggerFactory loggerFactory = LoggerFactory.Create(
     builder => builder
                 // add console as logging target
                 .AddConsole()
@@ -42,7 +43,8 @@ var loggerFactory = LoggerFactory.Create(
 
 var logger = loggerFactory.CreateLogger("BingoRoomCategory");
 //TODO fix logger error
-builder.Services.AddSingleton<BingoRoomService>(logger);
+builder.Services.AddSingleton<BingoRoomService>();
+//builder.Logging.AddProvider(loggerFactory);
 
 // Test logging
 logger.LogTrace("Trace message");
