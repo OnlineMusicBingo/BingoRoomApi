@@ -31,7 +31,6 @@ jobs:
       - name: Build and push image to ACR
         run: az acr build --image ${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.ACR_RESOURCE_GROUP }} -f ./Dockerfile ./
   test:
-    needs: [build]
     runs-on: ubuntu-latest
     defaults:
       run:
