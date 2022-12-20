@@ -5,6 +5,8 @@ using BingoRoomApi.Data;
 using BingoRoomApi.Interfaces;
 using BingoRoomApi.Repositories;
 using Microsoft.Extensions.Options;
+using System;
+using MongoDB.Driver.Core.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -14,7 +16,21 @@ if (builder.Environment.IsProduction())
 {
     var builtConfig = builder.Configuration;
 
+    Console.Write("AddAzureKeyvault:");
     builder.Configuration.AddAzureKeyVault(new KeyVaultManagement(builtConfig).SecretClient, new KeyVaultSecretManager());
+
+    try
+    {
+        Console.Write("GetValue ConnString:");
+
+        builtConfig.GetValue<string>("BingoRoomDBConnString");
+    }
+    catch (Exception ex)
+    {
+        Console.Write("Error BingoRoomDBConnString");
+        Console.Write(ex);
+    }
+
     builder.Services.Configure<BingoAppDbSettings>(options => new BingoAppDbSettings
     {
         ConnectionString = builtConfig.GetValue<string>("BingoRoomDBConnString"),
