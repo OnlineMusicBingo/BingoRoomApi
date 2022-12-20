@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BingoRoomApi", "BingoRoomAp
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{772E17B7-C57E-45E7-A1EF-D6213A03C25E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingoRoomApi.Tests", "..\BingoRoomApi.Tests\BingoRoomApi.Tests.csproj", "{C19B2996-D4C4-4A29-9542-06233E0334BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{772E17B7-C57E-45E7-A1EF-D6213A03C25E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{772E17B7-C57E-45E7-A1EF-D6213A03C25E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{772E17B7-C57E-45E7-A1EF-D6213A03C25E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C19B2996-D4C4-4A29-9542-06233E0334BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C19B2996-D4C4-4A29-9542-06233E0334BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C19B2996-D4C4-4A29-9542-06233E0334BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C19B2996-D4C4-4A29-9542-06233E0334BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

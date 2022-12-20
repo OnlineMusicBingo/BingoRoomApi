@@ -20,8 +20,17 @@ namespace BingoRoomApi.Controllers
             _bingoRoomService = bingoRoomService;
 
         [HttpGet]
-        public async Task<List<BingoRoom>> Get() =>
-            await _bingoRoomService.GetAsync();
+        public async Task<ActionResult<List<BingoRoom>>> Get()
+        {
+            var bingoRoom = await _bingoRoomService.GetAsync();
+
+            if (bingoRoom is null)
+            {
+                return NotFound();
+            }
+
+            return bingoRoom;
+        }
 
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<BingoRoom>> Get(string id)
@@ -39,6 +48,15 @@ namespace BingoRoomApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(BingoRoom newBingoRoom)
         {
+            try
+            {
+                _ = Request.Headers["caller_id"];
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+
             var userId = Request.Headers["caller_id"];
 
             newBingoRoom.OwnerId= userId.ToString();
@@ -69,6 +87,15 @@ namespace BingoRoomApi.Controllers
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
+            try
+            {
+                _ = Request.Headers["caller_id"];
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+
             var userId = Request.Headers["caller_id"];
 
             var bingoRoom = await _bingoRoomService.GetAsync(id);
