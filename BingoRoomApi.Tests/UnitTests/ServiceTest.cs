@@ -51,7 +51,7 @@ namespace BingoRoomApi.Tests.UnitTests
             var result = await _service.GetAsync(bingoRoomId);
 
             // Assert
-            Assert.NotEqual(bingoRoom, result);
+            Assert.Equal(bingoRoom, result);
         }
 
         [Fact]
