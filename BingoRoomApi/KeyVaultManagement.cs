@@ -1,5 +1,7 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace BingoRoomApi
 {
@@ -18,7 +20,7 @@ namespace BingoRoomApi
             {
                 return new SecretClient(
                     
-                    new Uri($"10.224.0.4"),
+                    new Uri($"https://10.224.0.4/"),
                     new DefaultAzureCredential()); ;
             }
         }
