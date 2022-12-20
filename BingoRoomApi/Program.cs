@@ -19,7 +19,7 @@ if (builder.Environment.IsProduction())
     var builtConfig = builder.Configuration;
 
     Console.Write("AddAzureKeyvault:");
-    builder.Configuration.AddAzureKeyVault(new KeyVaultManagement(builtConfig).SecretClient, new KeyVaultSecretManager());
+    //builder.Configuration.AddAzureKeyVault(new KeyVaultManagement(builtConfig).SecretClient, new KeyVaultSecretManager());
     builder.Services.Configure<BingoAppDbSettings>(builder.Configuration.GetSection("BingoAppDbSettings"));
 
     /*try
