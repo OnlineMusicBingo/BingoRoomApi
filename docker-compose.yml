@@ -11,7 +11,7 @@ services:
     image: ${DOCKER_REGISTRY-}bingoroomapi
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: BingoRoomApi/Dockerfile
     ports:
       - 5800:80
       - 7800:443
