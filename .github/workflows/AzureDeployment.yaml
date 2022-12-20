@@ -6,7 +6,7 @@ name: AzureDeployment
     workflow_dispatch: {}
 env:
     ACR_RESOURCE_GROUP: OnlineMusicBingoGroup
-    AZURE_CONTAINER_REGISTRY: OnlineMusicBingoRegistry
+    AZURE_CONTAINER_REGISTRY: onlinemusicbingoregistry
     CLUSTER_NAME: OnlineMusicBingo-KubernetesCluster
     CLUSTER_RESOURCE_GROUP: OnlineMusicBingoGroup
     CONTAINER_NAME: bingoroomapi
