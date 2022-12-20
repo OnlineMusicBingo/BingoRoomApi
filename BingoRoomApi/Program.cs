@@ -20,8 +20,9 @@ if (builder.Environment.IsProduction())
 
     Console.Write("AddAzureKeyvault:");
     builder.Configuration.AddAzureKeyVault(new KeyVaultManagement(builtConfig).SecretClient, new KeyVaultSecretManager());
+    builder.Services.Configure<BingoAppDbSettings>(builder.Configuration.GetSection("BingoAppDbSettings"));
 
-    try
+    /*try
     {
         Console.Write("GetValue ConnString:");
 
@@ -36,10 +37,8 @@ if (builder.Environment.IsProduction())
     catch (Exception ex)
     {
         Console.Write("Error BingoRoomDBConnString");
-        Console.Write(ex);
-
-        builder.Services.Configure<BingoAppDbSettings>(builder.Configuration.GetSection("BingoAppDbSettings"));
-    }
+        Console.Write(ex
+    }*/
 }
 
 if (builder.Environment.IsDevelopment())
