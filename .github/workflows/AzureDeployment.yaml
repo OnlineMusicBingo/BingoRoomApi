@@ -11,9 +11,9 @@ env:
     CLUSTER_RESOURCE_GROUP: OnlineMusicBingoGroup
     CONTAINER_NAME: bingoroomapi
     DEPLOYMENT_MANIFEST_PATH: |
-        ./Manifest/deployment.yml
-        ./Manifest/service.yml
-        ./Manifest/ingress.yml
+        ./BingoRoomApi/Manifest/deployment.yml
+        ./BingoRoomApi/Manifest/service.yml
+        ./BingoRoomApi/Manifest/ingress.yml
 jobs:
     buildImage:
         permissions:
@@ -32,16 +32,13 @@ jobs:
                 subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
                 tenant-id: ${{ secrets.AZURE_TENANT_ID }}
             - name: Build and push image to ACR
-              run: az acr build --image ${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.ACR_RESOURCE_GROUP }} -f ./Dockerfile ./
+              run: az acr build --image ${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.ACR_RESOURCE_GROUP }} -f ./BingoRoomApi/Dockerfile ./
     deploy:
         permissions:
             actions: read
             contents: read
             id-token: write
         runs-on: ubuntu-latest
-        defaults:
-            run:
-              working-directory: "./BingoRoomApi"
         needs:
             - buildImage
         steps:
