@@ -38,19 +38,38 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
-        run: dotnet build --no-restore
-      - name: Run tests
-        run: dotnet test --no-build --verbosity normal
-  - task: DotNetCoreCLI@2
-    displayName: 'Test and publish code coverage'
-    inputs:
-      command: 'test'
-      projects: '**/*Tests/*.csproj'
-      arguments: '--collect:"XPlat Code Coverage"'
-    env:
-      COVERAGE_FILE: '$(Build.SourcesDirectory)/TestResults/*/coverage.cobertura.xml'
-  - task: Codecov@1
-    displayName: 'Upload code coverage'
-    inputs:
-      codecovToken: '$(CODECOV_TOKEN)'
-      file: '$(COVERAGE_FILE)'
+        run: dotnet build --no-restore /p:ContinuousIntegrationBuild=true
+      - name: Run tests with coverage
+        run: dotnet test --no-build --collect:"XPlat Code Coverage"
+      - name: ReportGenerator
+        uses: danielpalme/ReportGenerator-GitHub-Action@5
+        with:
+          reports: 'FeedMessages.Test/TestResults/**/coverage.cobertura.xml'
+          targetdir: 'CoverageReports'
+          reporttypes: 'HtmlInline;Cobertura'
+          verbosity: 'Verbose'
+          toolpath: 'reportgeneratortool'
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: CoverageReports        
+          path: CoverageReports
+  
+  upload-to-codecov:
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+      - name: List files
+        run: cd CoverageReports && ls && cd ..
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: CoverageReports/Cobertura.xml
+          name: codecov-umbrella
+          fail_ci_if_error: true
+          verbose: true
