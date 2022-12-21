@@ -11,7 +11,7 @@ namespace BingoRoomApi
 
         public KeyVaultManagement(IConfiguration config)
         {
-            _config = config;
+            this._config = config;
         }
 
         public SecretClient SecretClient
