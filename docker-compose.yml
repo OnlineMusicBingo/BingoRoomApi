@@ -1,10 +1,10 @@
 version: '3.4'
 
 networks:
-    mongodb_network:
+    bingoroomdb_network:
 
 volumes:
-  mongodb_data:
+  bingoroomdb_data:
 
 services:
   bingoroomapi:
@@ -23,16 +23,16 @@ services:
     volumes:
       - ~/.aspnet/https:/https:ro
     networks:
-      - mongodb_network
+      - bingoroomdb_network
 
-  mongodb:
+  bingoroomdb:
     image: mongo:6.0.3
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password
     volumes:
-      - mongodb_data:/data/db
+      - bingoroomdb_data:/data/db
     networks:
-      - mongodb_network
+      - bingoroomdb_network
     ports:
       - 27017:27017
