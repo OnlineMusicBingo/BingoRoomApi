@@ -41,8 +41,16 @@ jobs:
         run: dotnet build --no-restore
       - name: Run tests
         run: dotnet test --no-build --verbosity normal
-      - name: Upload coverage reports to Codecov
-        run: |
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
-          chmod +x codecov
-          ./codecov -t ${CODECOV_TOKEN}
+  - task: DotNetCoreCLI@2
+    displayName: 'Test and publish code coverage'
+    inputs:
+      command: 'test'
+      projects: '**/*Tests/*.csproj'
+      arguments: '--collect:"XPlat Code Coverage"'
+    env:
+      COVERAGE_FILE: '$(Build.SourcesDirectory)/TestResults/*/coverage.cobertura.xml'
+  - task: Codecov@1
+    displayName: 'Upload code coverage'
+    inputs:
+      codecovToken: '$(CODECOV_TOKEN)'
+      file: '$(COVERAGE_FILE)'
