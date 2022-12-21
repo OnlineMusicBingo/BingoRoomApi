@@ -16,11 +16,11 @@ export const options = {
     // a test is considered successful or not
     http_req_duration: ["p(99)<1500"], // 99% of requests must complete below 1.5s
   },
-};
+}
 
 export default function () {
   // Here, we set the endpoint to test.
-  const response = http.get("https://localhost:7800/api/bingoroom");
+  const response = http.get("https://127.0.0.1/bingoroom/api/bingoroom");
 
   // An assertion
   check(response, {
