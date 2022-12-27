@@ -9,5 +9,6 @@ namespace BingoRoomApi.Interfaces
         Task CreateAsync(BingoRoom newBingoRoom);
         Task UpdateAsync(string id, BingoRoom updatedBingoRoom);
         Task RemoveAsync(string id);
+        Task<bool> GetUserIsOwnerOfBingoRoom(string bingoRoomId, string userId);
     }
 }

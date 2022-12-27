@@ -1,38 +1,8 @@
 version: '3.4'
 
-networks:
-    bingoroomdb_network:
-
-volumes:
-  bingoroomdb_data:
-
 services:
   bingoroomapi:
     image: ${DOCKER_REGISTRY-}bingoroomapi
     build:
       context: .
-      dockerfile: Dockerfile
-    ports:
-      - 5800:80
-      - 7800:443
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=password123!
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/bingoroom.pfx
-    volumes:
-      - ~/.aspnet/https:/https:ro
-    networks:
-      - bingoroomdb_network
-
-  bingoroomdb:
-    image: mongo:6.0.3
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=password
-    volumes:
-      - bingoroomdb_data:/data/db
-    networks:
-      - bingoroomdb_network
-    ports:
-      - 27017:27017
+      dockerfile: BingoRoomApi/Dockerfile

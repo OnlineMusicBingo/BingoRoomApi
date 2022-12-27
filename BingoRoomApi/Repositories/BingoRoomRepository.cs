@@ -29,6 +29,12 @@ namespace BingoRoomApi.Repositories
 
         public async Task RemoveAsync(string id) =>
             await _bingoRoomCollection.DeleteOneAsync(x => x.Id == id);
-    
+
+        public async Task<bool> GetUserIsOwnerOfBingoRoom(string bingoRoomId, string userId)
+        {
+            var bingoRoom = await _bingoRoomCollection.Find(x => x.Id == bingoRoomId).FirstOrDefaultAsync();
+            var isOwnerOfBingoRoom = bingoRoom.OwnerId== userId;
+            return isOwnerOfBingoRoom;
+        }
     }
 }

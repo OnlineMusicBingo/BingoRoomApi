@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>0aa256a6-5a55-4700-ab3a-071d33d4059c</ProjectGuid>
+    <ProjectGuid>56cee503-1502-4ce3-b9e6-d4a477e9ce42</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>bingoroomapi</DockerServiceName>

@@ -30,5 +30,8 @@ namespace BingoRoomApi.Services
 
         public async Task RemoveAsync(string id) =>
             await _bingoRoomRepository.RemoveAsync(id);
+
+        public async Task<bool> GetUserIsOwnerOfBingoRoom(string bingoroomId, string userId) =>
+            await _bingoRoomRepository.GetUserIsOwnerOfBingoRoom(bingoroomId, userId);
     }
 }

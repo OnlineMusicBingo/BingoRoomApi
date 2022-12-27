@@ -1,24 +1,19 @@
-using BingoRoomApi;
-using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using BingoRoomApi.Services;
 using BingoRoomApi.Data;
 using BingoRoomApi.Interfaces;
 using BingoRoomApi.Repositories;
 using Microsoft.Extensions.Options;
-using Azure.Core;
-using Azure.Identity;
-using System;
-using MongoDB.Driver.Core.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
+//builder.Logging.ClearProviders();
+//builder.Logging.AddConsole();
 
 if (builder.Environment.IsProduction())
 {
     var builtConfig = builder.Configuration;
 
-    Console.Write("AddAzureKeyvault:");
+    //Console.Write("AddAzureKeyvault:");
     //builder.Configuration.AddAzureKeyVault(new KeyVaultManagement(builtConfig).SecretClient, new KeyVaultSecretManager());
     builder.Services.Configure<BingoAppDbSettings>(builder.Configuration.GetSection("BingoAppDbSettings"));
 
@@ -56,6 +51,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<RpcServer>();
+
+// Build the service provider
+var serviceProvider = builder.Services.BuildServiceProvider();
+
+// Get the service from the service provider
+var rpcServer = serviceProvider.GetRequiredService<RpcServer>();
+
+// Start RpcServer
+rpcServer.Start();
 
 var app = builder.Build();
 
