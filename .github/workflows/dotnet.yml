@@ -49,7 +49,12 @@ jobs:
         run: |
           dotnet test --output build --collect:"XPlat Code Coverage"
           dotnet tool install -g dotnet-reportgenerator-globaltool
-          reportgenerator -reports:'../coverage.cobertura.xml' -targetdir:'CoverageReports' -reporttypes:'Cobertura'
+      - name: Find code coverage report
+        run: |
+          coverage_report_path=$(find . -name coverage.cobertura.xml)
+      - name: Generate code coverage report
+        run: |
+          reportgenerator -reports:$coverage_report_path -targetdir:'CoverageReports' -reporttypes:'Cobertura'
       - name: Publish build artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -60,11 +65,10 @@ jobs:
         with:
           name: cobertura
           path: CoverageReports/Cobertura.xml
-          
       - name: ReportGenerator
         uses: danielpalme/ReportGenerator-GitHub-Action@5
         with:
-          reports: '../coverage.cobertura.xml'
+          reports: $coverage_report_path
           targetdir: 'CoverageReports'
           reporttypes: 'HtmlInline;Cobertura'
           verbosity: 'Verbose'
