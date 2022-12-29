@@ -49,8 +49,7 @@ jobs:
         run: |
           dotnet test --output build --collect:"XPlat Code Coverage"
           dotnet tool install -g dotnet-reportgenerator-globaltool
-          reportgenerator -reports:'./TestResults/**/coverage.cobertura.xml' -targetdir:'CoverageReports' -reporttypes:'Cobertura'
-          ls
+          reportgenerator -reports:'../coverage.cobertura.xml' -targetdir:'CoverageReports' -reporttypes:'Cobertura'
       - name: Publish build artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -65,7 +64,7 @@ jobs:
       - name: ReportGenerator
         uses: danielpalme/ReportGenerator-GitHub-Action@5
         with:
-          reports: 'BingoRoomApi.Test/TestResults/**/coverage.cobertura.xml'
+          reports: '../coverage.cobertura.xml'
           targetdir: 'CoverageReports'
           reporttypes: 'HtmlInline;Cobertura'
           verbosity: 'Verbose'
