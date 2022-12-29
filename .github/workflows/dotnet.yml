@@ -52,6 +52,7 @@ jobs:
       - name: Find code coverage report
         run: |
           coverage_report_path=$(find . -name coverage.cobertura.xml)
+          echo "Code coverage report path: $coverage_report_path"
       - name: Generate code coverage report
         run: |
           reportgenerator -reports:$coverage_report_path -targetdir:'CoverageReports' -reporttypes:'Cobertura'
