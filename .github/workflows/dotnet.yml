@@ -53,19 +53,6 @@ jobs:
         run: |
           coverage_report_path=$(find . -name coverage.cobertura.xml)
           echo "Code coverage report path: $coverage_report_path"
-      - name: Generate code coverage report
-        run: |
-          reportgenerator -reports:$coverage_report_path -targetdir:'CoverageReports' -reporttypes:'Cobertura'
-      - name: Publish build artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: build
-      - name: Publish cobertura report
-        uses: actions/upload-artifact@v2
-        with:
-          name: cobertura
-          path: CoverageReports/Cobertura.xml
       - name: ReportGenerator
         uses: danielpalme/ReportGenerator-GitHub-Action@5
         with:
