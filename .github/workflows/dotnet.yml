@@ -56,7 +56,7 @@ jobs:
       - name: ReportGenerator
         uses: danielpalme/ReportGenerator-GitHub-Action@5
         with:
-          reports: ./TestResults/**/coverage.cobertura.xml
+          reports: ./BingoRoomApi.Tests/TestResults/**/coverage.cobertura.xml
           targetdir: 'CoverageReports'
           reporttypes: 'HtmlInline;Cobertura'
           verbosity: 'Verbose'
