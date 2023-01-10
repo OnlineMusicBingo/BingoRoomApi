@@ -1,8 +1,6 @@
-name: Check Kubernetes YAMLs with kube-linter
+name: Kubelinter
 
 on:
-  # Note that both `push` and `pull_request` triggers should be present for GitHub to consistently present kube-linter
-  # SARIF reports.
   push:
     branches: [ main ]
   pull_request:
@@ -21,7 +19,7 @@ jobs:
       - name: Scan repo with kube-linter
         uses: stackrox/kube-linter-action@v1.0.4
         with:
-          directory: BingoRoomApi/Manifest
+          directory: ./BingoRoomApi/Manifest
           format: sarif
           output-file: ../results/kube-linter.sarif
 
